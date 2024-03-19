@@ -1,5 +1,7 @@
 package com.example.demo.services.interfaces;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,5 +18,5 @@ public interface ClassroomServiceInt {
 	 public ResponseEntity<Classroom> createClassroom(@RequestBody Classroom classroom);
 	 
 	 @GetMapping("/")
-	 public ResponseEntity<String> getClassroom();
+	 ResponseEntity<List<Classroom>> getClassroom() ;
 }

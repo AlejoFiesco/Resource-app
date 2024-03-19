@@ -3,6 +3,8 @@ package com.example.demo.model;
 import com.example.demo.model.catalog.ClassroomType;
 
 public class Classroom {
+	
+	private String id;
 	private int capacity;
 	private int movableChairs;
 	private int staticChairs;
@@ -10,6 +12,12 @@ public class Classroom {
 	private int staticTables;
 	private ClassroomType type;
 	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public int getCapacity() {
 		return capacity;
 	}
