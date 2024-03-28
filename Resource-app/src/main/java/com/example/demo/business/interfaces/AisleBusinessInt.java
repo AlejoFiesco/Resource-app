@@ -9,4 +9,6 @@ public interface AisleBusinessInt {
 	public Aisle createAisle(Aisle aisle) throws Exception;
 
 	public List<Aisle> getAisleList() throws Exception;
+	
+	public Aisle getAisleById(String aisleId) throws Exception;
 }

@@ -4,11 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.business.implementation.AisleBusinessImpl;
 import com.example.demo.model.Aisle;
 import com.example.demo.services.interfaces.AisleServiceInt;
+import com.example.demo.utilities.responses.CustomResponse;
 
+@RestController
 public class AisleServiceImpl implements AisleServiceInt{
 
 	@Autowired
@@ -34,7 +37,19 @@ public class AisleServiceImpl implements AisleServiceInt{
 			System.out.println(e);
 		}
 		
-		return ResponseEntity.ok(aisleList);
+		return aisleList == null ? ResponseEntity.internalServerError().build() : ResponseEntity.ok(aisleList);
 	}
 
+	@Override
+	public ResponseEntity<Aisle> getAisleById(String aisleId) throws Exception {
+		Aisle returnedAisle = null;
+		try {
+			returnedAisle = aisleBusiness.getAisleById(aisleId);
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return CustomResponse.buildResponse(returnedAisle);
+	}
+
+	
 }

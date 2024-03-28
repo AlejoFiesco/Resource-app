@@ -17,4 +17,7 @@ public interface AisleServiceInt {
 
 	@GetMapping("/")
 	public ResponseEntity<List<Aisle>> getAisleList() throws Exception;
+	
+	@GetMapping("/{aisleId}")
+	public ResponseEntity<Aisle> getAisleById(String aisleId) throws Exception;
 }

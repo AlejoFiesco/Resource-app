@@ -3,15 +3,16 @@ package com.example.demo.model;
 import java.util.List;
 
 public class Aisle {
-	private List<Classroom> classroomList;
+	private List<String> classroomList;
 	private boolean isolable;
 	private boolean amplifiedAudio;
 	private boolean foodDistribute;
 	private int peopleCapacity;
-	public List<Classroom> getClassroomList() {
+	
+	public List<String> getClassroomList() {
 		return classroomList;
 	}
-	public void setClassroomList(List<Classroom> classroomList) {
+	public void setClassroomList(List<String> classroomList) {
 		this.classroomList = classroomList;
 	}
 	public boolean isIsolable() {

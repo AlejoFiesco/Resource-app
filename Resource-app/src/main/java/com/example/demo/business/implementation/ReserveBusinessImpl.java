@@ -34,7 +34,7 @@ public class ReserveBusinessImpl implements ReserveBusinessInt {
 		List<Reserve> reserveList;
 
 		try {
-			reserveList = factory.getList(Resource.class);
+			reserveList = factory.getList(Reserve.class);
 		} catch (Exception e) {
 			throw e;
 		}

@@ -30,7 +30,7 @@ public class AisleBusinessImpl implements AisleBusinessInt{
 
 	@Override
 	public List<Aisle> getAisleList() throws Exception {
-		List<Aisle> aisleList;
+		List<Aisle> aisleList = null;
 
 		try {
 			aisleList = factory.getList(Aisle.class);
@@ -38,6 +38,18 @@ public class AisleBusinessImpl implements AisleBusinessInt{
 			throw e;
 		}
 		return aisleList;
+	}
+
+	public Aisle getAisleById(String aisleId) throws Exception{
+		Aisle returnedAisle = null;
+		
+		try {
+			returnedAisle = (Aisle) factory.getById(Aisle.class, aisleId);
+		}catch(Exception e) {
+			throw e;
+		}
+		
+		return returnedAisle;
 	}
 
 }

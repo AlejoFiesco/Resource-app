@@ -64,4 +64,20 @@ public class Factory implements FactoryInterface {
 		
 		return objectList;
 	}
+
+	@Override
+	public Object getById(Class<?> class1, String id) throws Exception {
+		Object returnedObject = null;
+		
+		try {
+			DocumentReference docRef = firestore.collection(collections.get(class1)).document(id);
+			returnedObject = docRef.get().get().toObject(class1);
+		}catch(Exception e) {
+			System.out.println(e);
+			throw e;
+		}
+		
+		return returnedObject;
+	}
+	
 }
