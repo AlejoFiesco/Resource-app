@@ -57,4 +57,16 @@ public class ReserveBusinessImpl implements ReserveBusinessInt {
 		return returnedReserve;
 	}
 
+	@Override
+	public Reserve registerDevolution(String id) throws Exception {
+		Reserve reserve = null;
+		
+		try {
+			reserve = reserveDb.registerDevolution(id);
+		}catch(Exception e) {
+			throw e;
+		}
+		return reserve;
+	}
+
 }

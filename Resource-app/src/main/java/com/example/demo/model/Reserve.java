@@ -14,7 +14,6 @@ public class Reserve {
 	private User reservedBy;
 	private Date createdDate;
 	private Date devolutionDate;
-	private boolean active;
 	private Score score;
 	
 	
@@ -54,12 +53,6 @@ public class Reserve {
 	public void setReservedBy(User reservedBy) {
 		this.reservedBy = reservedBy;
 	}
-	public Date getReserverWhen() {
-		return createdDate;
-	}
-	public void setReserverWhen(Date reserverWhen) {
-		this.createdDate = reserverWhen;
-	}
 	public Date getCreatedDate() {
 		return createdDate;
 	}
@@ -71,12 +64,6 @@ public class Reserve {
 	}
 	public void setDevolutionDate(Date devolutionDate) {
 		this.devolutionDate = devolutionDate;
-	}
-	public boolean isActive() {
-		return active;
-	}
-	public void setActive(boolean active) {
-		this.active = active;
 	}
 	public Score getScore() {
 		return score;

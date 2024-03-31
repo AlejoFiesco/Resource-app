@@ -57,4 +57,18 @@ public class ReserveServiceImpl implements ReserveServiceInt{
 		return CustomResponse.buildResponse(returnedReserve);
 	}
 
+	@Override
+	public ResponseEntity<Reserve> registerDevolution(String id) {
+		Reserve reserve = null;
+		if(id != null && !id.isEmpty()) {
+			try {
+				reserve = reserveBusiness.registerDevolution(id);
+			}catch(Exception e) {
+				System.out.println(e);
+				return CustomResponse.buildResponse(e.getMessage());
+			}
+		}
+		return CustomResponse.buildResponse(reserve);
+	}
+
 }
