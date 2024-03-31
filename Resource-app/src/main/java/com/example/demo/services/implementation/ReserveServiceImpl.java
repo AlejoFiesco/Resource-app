@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.business.implementation.ReserveBusinessImpl;
 import com.example.demo.model.Reserve;
 import com.example.demo.services.interfaces.ReserveServiceInt;
+import com.example.demo.utilities.responses.CustomResponse;
 
 @RestController
 public class ReserveServiceImpl implements ReserveServiceInt{
@@ -19,12 +20,15 @@ public class ReserveServiceImpl implements ReserveServiceInt{
 	@Override
 	public ResponseEntity<Reserve> createReserve(Reserve reserve) {
 		Reserve createdReserve = null;
-		try {
-			createdReserve = reserveBusiness.createReserve(reserve);
-		}catch(Exception e) {
-			System.out.println(e);
+		if(reserve != null) {
+			try {
+				createdReserve = reserveBusiness.createReserve(reserve);
+			}catch(Exception e) {
+				System.out.println(e);
+				return CustomResponse.buildResponse(e.getMessage());
+			}			
 		}
-		return createdReserve == null ? ResponseEntity.internalServerError().build() : ResponseEntity.ok(createdReserve);
+		return CustomResponse.buildResponse(createdReserve);
 	}
 
 	@Override
@@ -36,7 +40,21 @@ public class ReserveServiceImpl implements ReserveServiceInt{
 			System.out.println(e);
 		}
 		
-		return reserveList == null ? ResponseEntity.internalServerError().build() : ResponseEntity.ok(reserveList);
+		return CustomResponse.buildResponse(reserveList);
+	}
+
+	@Override
+	public ResponseEntity<Reserve> getReserveById(String id) {
+		Reserve returnedReserve = null;
+		if(id != null) {
+			try {
+				returnedReserve = reserveBusiness.getReserveById(id);
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+		}
+		
+		return CustomResponse.buildResponse(returnedReserve);
 	}
 
 }

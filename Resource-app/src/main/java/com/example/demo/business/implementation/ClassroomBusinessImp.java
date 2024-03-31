@@ -20,7 +20,7 @@ public class ClassroomBusinessImp implements ClassroomBusinessInt {
 		Classroom createdClassroom = null;
 		if (classroom != null) {
 			try {
-				createdClassroom = (Classroom) factory.create(classroom);
+				createdClassroom = (Classroom) factory.create(classroom, classroom.getId());
 			} catch (Exception e) {
 				throw e;
 			}
@@ -38,5 +38,18 @@ public class ClassroomBusinessImp implements ClassroomBusinessInt {
 			throw e;
 		}
 		return classroomList;
+	}
+
+	@Override
+	public Classroom getClassroomById(String classroomId) throws Exception {
+		Classroom returnedClassroom = null;
+		
+		try {
+			returnedClassroom = (Classroom) factory.getById(Classroom.class, classroomId);
+		}catch(Exception e) {
+			throw e;
+		}
+		
+		return returnedClassroom;
 	}
 }

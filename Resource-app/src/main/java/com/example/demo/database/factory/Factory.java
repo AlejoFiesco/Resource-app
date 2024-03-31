@@ -1,5 +1,6 @@
 package com.example.demo.database.factory;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -30,17 +31,22 @@ public class Factory implements FactoryInterface {
 		Arrays.asList(Collections.values()).forEach(coll -> collections.put(coll.getClass1(), coll.getCollectionName()));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Object create(Object object) throws Exception {
-		Object createdObject = null;
+	public <T> T create(T object, String id) throws Exception {
+		T createdObject = null;
 
 		try {
 			String collection = collections.get(object.getClass());
-			DocumentReference docRef = firestore.collection(collection).document();
+			DocumentReference docRef = id == null ? firestore.collection(collection).document() : firestore.collection(collection).document(id);
+			if(id == null) {
+				Method setIdMethod = object.getClass().getMethod("setId", String.class);
+				setIdMethod.invoke(object, docRef.getId());
+			}
 			ApiFuture<WriteResult> future = docRef.set(object);
 			System.out.println("Updated at: " + future.get().getUpdateTime());
 			ApiFuture<DocumentSnapshot> newDocRef = docRef.get();
-			createdObject = newDocRef.get().toObject(object.getClass());
+			createdObject = (T) newDocRef.get().toObject(object.getClass());
 		} catch (Exception e) {
 			System.out.println(e);
 			throw e;
@@ -65,19 +71,19 @@ public class Factory implements FactoryInterface {
 		return objectList;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Object getById(Class<?> class1, String id) throws Exception {
-		Object returnedObject = null;
+	public <T> T getById(Class<?> class1, String id) throws Exception {
+		T returnedObject = null;
 		
 		try {
 			DocumentReference docRef = firestore.collection(collections.get(class1)).document(id);
-			returnedObject = docRef.get().get().toObject(class1);
+			returnedObject = (T) docRef.get().get().toObject(class1);
 		}catch(Exception e) {
 			System.out.println(e);
 			throw e;
 		}
 		
 		return returnedObject;
-	}
-	
+	}	
 }

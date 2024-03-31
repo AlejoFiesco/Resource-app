@@ -11,7 +11,9 @@ public class CustomResponse extends ResponseEntity<Object>{
 	
 	@SuppressWarnings("unchecked")
 	public static <T> ResponseEntity<T> buildResponse(Object object){
-		return object == null ? ResponseEntity.internalServerError().build() : (ResponseEntity<T>) ResponseEntity.ok(object);
+		if(object == null) return ResponseEntity.internalServerError().build();
+		if(object.getClass().equals(String.class)) return (ResponseEntity<T>) ResponseEntity.badRequest().body(object);
+		else return (ResponseEntity<T>) ResponseEntity.ok(object);
 	}
 
 }

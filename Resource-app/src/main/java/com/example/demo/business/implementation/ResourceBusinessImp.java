@@ -23,7 +23,7 @@ public class ResourceBusinessImp implements ResourceBusinessInt {
 		Resource createdResource = null;
 		if(resource != null) {
 			try {				
-				createdResource = (Resource) factory.create(resource);
+				createdResource = (Resource) factory.create(resource, null);
 			}catch(Exception e) {
 				throw e;
 			}
@@ -40,5 +40,18 @@ public class ResourceBusinessImp implements ResourceBusinessInt {
 			throw e;
 		}
 		return resourceList;
+	}
+
+	@Override
+	public Resource getResourceById(String id) throws Exception{
+		Resource resource = null;
+		
+		try {
+			resource = factory.getById(Resource.class, id);
+		}catch(Exception e) {
+			throw e;
+		}
+		
+		return resource;
 	}
 }

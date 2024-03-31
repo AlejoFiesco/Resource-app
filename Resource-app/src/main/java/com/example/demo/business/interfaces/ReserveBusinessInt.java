@@ -8,4 +8,6 @@ public interface ReserveBusinessInt {
 	public Reserve createReserve(Reserve reserve) throws Exception;
 
 	public List<Reserve> getReserveList() throws Exception;
+
+	Reserve getReserveById(String id) throws Exception;
 }

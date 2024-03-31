@@ -25,7 +25,7 @@ public class AisleServiceImpl implements AisleServiceInt{
 		}catch(Exception e) {
 			System.out.println(e);
 		}
-		return createdAisle == null ? ResponseEntity.internalServerError().build() : ResponseEntity.ok(createdAisle);
+		return CustomResponse.buildResponse(createdAisle);
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class AisleServiceImpl implements AisleServiceInt{
 			System.out.println(e);
 		}
 		
-		return aisleList == null ? ResponseEntity.internalServerError().build() : ResponseEntity.ok(aisleList);
+		return CustomResponse.buildResponse(aisleList);
 	}
 
 	@Override

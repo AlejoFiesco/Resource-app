@@ -4,19 +4,26 @@ import java.util.Date;
 import java.util.List;
 
 import com.example.demo.model.subclasses.Score;
-import com.example.demo.model.subclasses.TimeRange;
 
 public class Reserve {
+	private String id;
 	private Classroom classroom;
 	private List<Resource> resourceList;
-	private Date reservedDate;
-	private TimeRange timeRange;
+	private Date from;
+	private Date to;
 	private User reservedBy;
 	private Date createdDate;
 	private Date devolutionDate;
 	private boolean active;
 	private Score score;
 	
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public Classroom getClassroom() {
 		return classroom;
 	}
@@ -29,17 +36,17 @@ public class Reserve {
 	public void setResourceList(List<Resource> resourceList) {
 		this.resourceList = resourceList;
 	}
-	public Date getReservedDate() {
-		return reservedDate;
+	public Date getFrom() {
+		return from;
 	}
-	public void setReservedDate(Date reservedDate) {
-		this.reservedDate = reservedDate;
+	public void setFrom(Date from) {
+		this.from = from;
 	}
-	public TimeRange getTimeRange() {
-		return timeRange;
+	public Date getTo() {
+		return to;
 	}
-	public void setTimeRange(TimeRange timeRange) {
-		this.timeRange = timeRange;
+	public void setTo(Date to) {
+		this.to = to;
 	}
 	public User getReservedBy() {
 		return reservedBy;

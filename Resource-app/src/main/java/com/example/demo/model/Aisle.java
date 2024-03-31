@@ -3,12 +3,19 @@ package com.example.demo.model;
 import java.util.List;
 
 public class Aisle {
+	private String name;
 	private List<String> classroomList;
 	private boolean isolable;
 	private boolean amplifiedAudio;
 	private boolean foodDistribute;
 	private int peopleCapacity;
 	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public List<String> getClassroomList() {
 		return classroomList;
 	}

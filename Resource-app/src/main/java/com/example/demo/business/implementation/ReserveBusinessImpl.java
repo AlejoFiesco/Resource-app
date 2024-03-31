@@ -7,21 +7,24 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.business.interfaces.ReserveBusinessInt;
 import com.example.demo.database.factory.Factory;
+import com.example.demo.database.implementation.ReserveDBImpl;
 import com.example.demo.model.Reserve;
-import com.example.demo.model.Resource;
 
 @Service
 public class ReserveBusinessImpl implements ReserveBusinessInt {
 	
 	@Autowired
 	Factory factory;
+	
+	@Autowired
+	ReserveDBImpl reserveDb;
 
 	@Override
 	public Reserve createReserve(Reserve reserve) throws Exception {
 		Reserve createdReserve = null;
 		if (reserve != null) {
 			try {
-				createdReserve = (Reserve) factory.create(reserve);
+				createdReserve = reserveDb.createReserve(reserve);
 			} catch (Exception e) {
 				throw e;
 			}
@@ -39,6 +42,19 @@ public class ReserveBusinessImpl implements ReserveBusinessInt {
 			throw e;
 		}
 		return reserveList;
+	}
+
+	@Override
+	public Reserve getReserveById(String id) throws Exception{
+		Reserve returnedReserve = null;
+		
+		try {
+			returnedReserve = factory.getById(Reserve.class, id);
+		}catch(Exception e) {
+			throw e;
+		}
+		
+		return returnedReserve;
 	}
 
 }

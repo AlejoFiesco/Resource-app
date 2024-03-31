@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.business.implementation.ClassroomBusinessImp;
 import com.example.demo.model.Classroom;
 import com.example.demo.services.interfaces.ClassroomServiceInt;
+import com.example.demo.utilities.responses.CustomResponse;
 
 @RestController
 public class ClassroomServiceImp implements ClassroomServiceInt{
@@ -24,7 +25,7 @@ public class ClassroomServiceImp implements ClassroomServiceInt{
 		}catch(Exception e) {
 			System.out.println(e);
 		}
-		return createdClassroom == null ? ResponseEntity.internalServerError().build() : ResponseEntity.ok(createdClassroom);
+		return CustomResponse.buildResponse(createdClassroom);
 	}
 
 	@Override
@@ -36,7 +37,19 @@ public class ClassroomServiceImp implements ClassroomServiceInt{
 			System.out.println(e);
 		}
 		
-		return classroomList == null ? ResponseEntity.internalServerError().build() : ResponseEntity.ok(classroomList);
+		return CustomResponse.buildResponse(classroomList);
+	}
+
+	@Override
+	public ResponseEntity<Classroom> getClassroomById(String classroomId) {
+		Classroom returnedClassroom = null;
+		
+		try {
+			returnedClassroom = classroomBusiness.getClassroomById(classroomId);
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return CustomResponse.buildResponse(returnedClassroom);
 	}
 
 }

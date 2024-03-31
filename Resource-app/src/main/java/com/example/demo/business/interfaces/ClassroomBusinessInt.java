@@ -10,4 +10,5 @@ import com.example.demo.model.Classroom;
 public interface ClassroomBusinessInt {
 	public Classroom createClassroom(Classroom classroom) throws Exception;
 	public List<Classroom> getClassroomList() throws Exception;
+	Classroom getClassroomById(String classroomId) throws Exception;
 }

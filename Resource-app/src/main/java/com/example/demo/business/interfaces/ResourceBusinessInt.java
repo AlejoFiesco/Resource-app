@@ -8,4 +8,6 @@ public interface ResourceBusinessInt {
 	public Resource createResource(Resource resource) throws Exception;
 	
 	public List<Resource> getResourceList() throws Exception;
+	
+	public Resource getResourceById(String id) throws Exception;
 }

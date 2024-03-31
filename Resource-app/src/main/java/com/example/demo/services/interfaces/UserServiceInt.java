@@ -9,17 +9,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.model.Aisle;
+import com.example.demo.model.User;
 
-@RequestMapping("/aisle")
-public interface AisleServiceInt {
-	
+@RequestMapping("/user")
+public interface UserServiceInt {
+
 	@PostMapping("/")
-	public ResponseEntity<Aisle> createAisle(@RequestBody Aisle aisle) throws Exception;
-
-	@GetMapping("/")
-	public ResponseEntity<List<Aisle>> getAisleList() throws Exception;
+	public ResponseEntity<User> createUser(@RequestBody User user);
 	
-	@GetMapping("/{aisleId}")
-	public ResponseEntity<Aisle> getAisleById(@PathVariable(value="aisleId") String aisleId) throws Exception;
+	@GetMapping("/")
+	public ResponseEntity<List<User>> getUsers();
+	
+	@GetMapping("/{userId}")
+	public ResponseEntity<User> getUserById(@PathVariable(value="userId") String id);
+	
 }

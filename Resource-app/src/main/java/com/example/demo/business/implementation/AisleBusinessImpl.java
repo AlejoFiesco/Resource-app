@@ -20,7 +20,7 @@ public class AisleBusinessImpl implements AisleBusinessInt{
 		Aisle createdAisle = null;
 		if (aisle != null) {
 			try {
-				createdAisle = (Aisle) factory.create(aisle);
+				createdAisle = (Aisle) factory.create(aisle, aisle.getName());
 			} catch (Exception e) {
 				throw e;
 			}

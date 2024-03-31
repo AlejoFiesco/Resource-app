@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.business.implementation.ResourceBusinessImp;
 import com.example.demo.model.Resource;
 import com.example.demo.services.interfaces.ResourceServiceInt;
+import com.example.demo.utilities.responses.CustomResponse;
 
 @RestController
 public class ResourceServiceImpl implements ResourceServiceInt{
@@ -24,7 +25,7 @@ public class ResourceServiceImpl implements ResourceServiceInt{
 		}catch(Exception e) {
 			System.out.println(e);
 		}
-		return createdResource == null ? ResponseEntity.internalServerError().build() : ResponseEntity.ok(createdResource);
+		return CustomResponse.buildResponse(createdResource);
 	}
 
 	@Override
@@ -36,7 +37,22 @@ public class ResourceServiceImpl implements ResourceServiceInt{
 			System.out.println(e);
 		}
 		
-		return ResponseEntity.ok(resourceList);
+		return CustomResponse.buildResponse(resourceList);
+	}
+
+	@Override
+	public ResponseEntity<Resource> getResourceById(String id) {
+		Resource returnedResource = null;
+		
+		if(id != null) {
+			try {
+				returnedResource = resourceBusiness.getResourceById(id);
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+		}
+		
+		return CustomResponse.buildResponse(returnedResource);
 	}
 
 }
