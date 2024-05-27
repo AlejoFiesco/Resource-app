@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.business.implementation.ClassroomBusinessImp;
+import com.example.demo.config.AuthenticatorAnnotation;
 import com.example.demo.model.Classroom;
 import com.example.demo.services.interfaces.ClassroomServiceInt;
 import com.example.demo.utilities.responses.CustomResponse;
@@ -18,6 +19,7 @@ public class ClassroomServiceImp implements ClassroomServiceInt{
 	ClassroomBusinessImp classroomBusiness;
 	
 	@Override
+	@AuthenticatorAnnotation
 	public ResponseEntity<Classroom> createClassroom(Classroom classroom) {
 		Classroom createdClassroom = null;
 		try {

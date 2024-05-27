@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.business.implementation.ReserveBusinessImpl;
+import com.example.demo.config.AuthenticatorAnnotation;
 import com.example.demo.model.Reserve;
 import com.example.demo.services.interfaces.ReserveServiceInt;
 import com.example.demo.utilities.filters.ReserveFilter;
@@ -19,6 +20,7 @@ public class ReserveServiceImpl implements ReserveServiceInt {
 	ReserveBusinessImpl reserveBusiness;
 
 	@Override
+	@AuthenticatorAnnotation
 	public ResponseEntity<Reserve> createReserve(Reserve reserve) {
 		Reserve createdReserve = null;
 		if (reserve != null) {

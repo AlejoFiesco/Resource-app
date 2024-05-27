@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.business.implementation.AisleBusinessImpl;
+import com.example.demo.config.AuthenticatorAnnotation;
 import com.example.demo.model.Aisle;
 import com.example.demo.services.interfaces.AisleServiceInt;
 import com.example.demo.utilities.responses.CustomResponse;
@@ -18,6 +19,7 @@ public class AisleServiceImpl implements AisleServiceInt{
 	AisleBusinessImpl aisleBusiness;
 	
 	@Override
+	@AuthenticatorAnnotation
 	public ResponseEntity<Aisle> createAisle(Aisle aisle) throws Exception {
 		Aisle createdAisle = null;
 		try {
