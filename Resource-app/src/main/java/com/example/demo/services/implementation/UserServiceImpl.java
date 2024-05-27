@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.business.implementation.UserBusinessImpl;
+import com.example.demo.config.AuthenticatorAnnotation;
 import com.example.demo.model.User;
 import com.example.demo.services.interfaces.UserServiceInt;
 import com.example.demo.utilities.responses.CustomResponse;
@@ -18,6 +19,7 @@ public class UserServiceImpl implements UserServiceInt{
 	UserBusinessImpl userBusiness;
 	
 	@Override
+	@AuthenticatorAnnotation
 	public ResponseEntity<User> createUser(User user) {
 		User newUser = null;
 		

@@ -33,7 +33,7 @@ public class UserBusinessImpl implements UserBusinessInt{
 		List<User> userList = null;
 		
 		try {
-			userList = factory.getList(User.class);
+			userList = factory.getList(User.class, null);
 		}catch(Exception e) {
 			throw e;
 		}

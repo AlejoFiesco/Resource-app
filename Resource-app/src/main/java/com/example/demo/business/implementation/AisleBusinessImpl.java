@@ -33,7 +33,7 @@ public class AisleBusinessImpl implements AisleBusinessInt{
 		List<Aisle> aisleList = null;
 
 		try {
-			aisleList = factory.getList(Aisle.class);
+			aisleList = factory.getList(Aisle.class, null);
 		} catch (Exception e) {
 			throw e;
 		}

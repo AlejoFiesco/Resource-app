@@ -35,7 +35,7 @@ public class ResourceBusinessImp implements ResourceBusinessInt {
 		List<Resource> resourceList;
 		
 		try {
-			resourceList = factory.getList(Resource.class);
+			resourceList = factory.getList(Resource.class, null);
 		}catch(Exception e) {
 			throw e;
 		}

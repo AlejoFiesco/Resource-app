@@ -33,7 +33,7 @@ public class ClassroomBusinessImp implements ClassroomBusinessInt {
 		List<Classroom> classroomList = null;
 
 		try {
-			classroomList = factory.getList(Classroom.class);
+			classroomList = factory.getList(Classroom.class, null);
 		} catch (Exception e) {
 			throw e;
 		}

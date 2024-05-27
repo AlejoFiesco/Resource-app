@@ -8,6 +8,7 @@ import com.example.demo.model.subclasses.Score;
 public class Reserve {
 	private String id;
 	private Classroom classroom;
+	private List<String> resourceIdList;
 	private List<Resource> resourceList;
 	private Date from;
 	private Date to;
@@ -29,6 +30,14 @@ public class Reserve {
 	public void setClassroom(Classroom classroom) {
 		this.classroom = classroom;
 	}
+	
+	public List<String> getResourceIdList() {
+		return resourceIdList;
+	}
+	public void setResourceIdList(List<String> resourceIdList) {
+		this.resourceIdList = resourceIdList;
+	}
+	
 	public List<Resource> getResourceList() {
 		return resourceList;
 	}

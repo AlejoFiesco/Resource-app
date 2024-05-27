@@ -9,38 +9,44 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.business.implementation.ReserveBusinessImpl;
 import com.example.demo.model.Reserve;
 import com.example.demo.services.interfaces.ReserveServiceInt;
+import com.example.demo.utilities.filters.ReserveFilter;
 import com.example.demo.utilities.responses.CustomResponse;
 
 @RestController
-public class ReserveServiceImpl implements ReserveServiceInt{
+public class ReserveServiceImpl implements ReserveServiceInt {
 
 	@Autowired
 	ReserveBusinessImpl reserveBusiness;
-	
+
 	@Override
 	public ResponseEntity<Reserve> createReserve(Reserve reserve) {
 		Reserve createdReserve = null;
-		if(reserve != null) {
+		if (reserve != null) {
 			try {
 				createdReserve = reserveBusiness.createReserve(reserve);
-			}catch(Exception e) {
+			} catch (Exception e) {
 				System.out.println(e);
 				return CustomResponse.buildResponse(e.getMessage());
-			}			
+			}
 		}
 		return CustomResponse.buildResponse(createdReserve);
 	}
 
 	@Override
-	public ResponseEntity<List<Reserve>> getReserves() {
+	public ResponseEntity<List<Reserve>> getReserves(String classroomId, String resourceId, String reservedById, String startDate, String endDate) {
 		List<Reserve> reserveList = null;
 		try {
-			reserveList = reserveBusiness.getReserveList();
-		}catch(Exception e) {
+			
+			ReserveFilter reserveFilter = new ReserveFilter(classroomId, resourceId, reservedById, startDate, endDate );
+			reserveList = reserveBusiness.getReserveList(reserveFilter);
+		}catch(
+
+	Exception e)
+	{
 			System.out.println(e);
 		}
-		
-		return CustomResponse.buildResponse(reserveList);
+
+	return CustomResponse.buildResponse(reserveList);
 	}
 
 	@Override
