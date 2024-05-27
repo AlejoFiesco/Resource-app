@@ -32,7 +32,7 @@ public class SessionInterceptor {
 	            String idUser = request.getHeader("idUser");
 	            try {
 	            	User user = factory.getById(User.class, idUser);
-	                if (idUser != null || Objects.nonNull(user)) {
+	                if (Objects.isNull(user)) {
 	                    throw new UnauthorizedException("User with id " + idUser + " not found!");
 	                }
 	            } catch (UnauthorizedException e) {
