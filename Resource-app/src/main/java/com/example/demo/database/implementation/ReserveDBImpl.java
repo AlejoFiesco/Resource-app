@@ -17,6 +17,7 @@ import com.example.demo.model.Resource;
 import com.example.demo.utilities.date.DateUtils;
 import com.example.demo.utilities.filters.Operators;
 import com.example.demo.utilities.filters.ReserveFilter;
+import com.example.demo.utilities.reserve.ReserveUtils;
 import com.example.demo.utilities.structures.FilterUtils;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
@@ -30,51 +31,16 @@ public class ReserveDBImpl implements ReserveDBInt {
 	Firestore firestore;
 
 	@Override
-	public Reserve createReserve(Reserve reserve) throws Exception {
+	public Reserve createReserve(Reserve reserve)
+			throws OutOfDisponibilityException, AlreadyReservedException, Exception {
 		Reserve createdReserve = null;
 
-		//Se busca recursos que no estén disponibles
-		List<Resource> outOfDisponibilityResources = (List<Resource>) reserve.getResourceList().stream()
-				.filter(resource -> !DateUtils.isTimeGreaterThanTime2(DateUtils.getHoursMinutes(reserve.getFrom()),
-						resource.getDisponibility().get(0).getStart())
-						|| !DateUtils.isTimeGreaterThanTime2(DateUtils.getHoursMinutes(reserve.getFrom()),
-								resource.getDisponibility().get(0).getStart()))
-				.toList();
-
-		//Se imprimen los nombres de los recursos no disponibles
-		if (!outOfDisponibilityResources.isEmpty())
-			throw new OutOfDisponibilityException("La reserva está fuera de la disponibilidad del recurso "
-					+ outOfDisponibilityResources.stream().map(Resource::getName).collect(Collectors.joining(", ")));
-		
 		CollectionReference reserveCollRef = firestore.collection(Collections.RESERVES.getCollectionName());
-		try {
-			Query query1 = reserveCollRef.whereGreaterThan("from", reserve.getFrom())
-					.whereLessThan("from", reserve.getTo())
-					.whereArrayContainsAny("resourceIdList",
-							Objects.isNull(reserve.getResourceIdList()) ? new ArrayList<Object>()
-									: reserve.getResourceIdList())
-					.whereEqualTo("classroom.id", reserve.getClassroom().getId());
-
-			Query query2 = firestore.collection(Collections.RESERVES.getCollectionName())
-					.whereGreaterThan("to", reserve.getFrom()).whereLessThan("to", reserve.getTo())
-					.whereArrayContainsAny("resourceIdList",
-							Objects.isNull(reserve.getResourceIdList()) ? new ArrayList<Object>()
-									: reserve.getResourceIdList())
-					.whereEqualTo("classroom.id", reserve.getClassroom().getId());
-
-			List<Reserve> reserves1 = query1.get().get().toObjects(Reserve.class);
-			List<Reserve> reserves2 = query2.get().get().toObjects(Reserve.class);
-			if (!(reserves1.isEmpty() && reserves2.isEmpty()))
-				throw new AlreadyReservedException("Se cruza con otra reserva");
-			DocumentReference docRef = reserveCollRef.document();
-			reserve.setId(docRef.getId());
-			reserve.setCreatedDate(DateUtils.getCurrentDate());
-			docRef.set(reserve);
-			createdReserve = docRef.get().get().toObject(Reserve.class);
-
-		} catch (Exception e) {
-			throw e;
-		}
+		DocumentReference docRef = reserveCollRef.document();
+		reserve.setId(docRef.getId());
+		reserve.setCreatedDate(DateUtils.getCurrentDate());
+		docRef.set(reserve);
+		createdReserve = docRef.get().get().toObject(Reserve.class);
 
 		return createdReserve;
 	}
