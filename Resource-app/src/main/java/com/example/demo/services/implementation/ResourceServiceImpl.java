@@ -58,6 +58,7 @@ public class ResourceServiceImpl implements ResourceServiceInt{
 		return CustomResponse.buildResponse(returnedResource);
 	}
 	
+	@Override
 	public ResponseEntity<List<ResourceType>> getResourceTypeList(){
 		try{
 			return CustomResponse.buildResponse(resourceBusiness.getResourceTypeList()); 
@@ -66,6 +67,7 @@ public class ResourceServiceImpl implements ResourceServiceInt{
 		}
 	}
 	
+	@Override
 	public ResponseEntity<ResourceType> createResourceType(ResourceType resourceType){
 		try{
 			return CustomResponse.buildResponse(resourceBusiness.createResourceType(resourceType)); 

@@ -29,10 +29,10 @@ public interface UserServiceInt {
 	@GetMapping("/{userId}")
 	public ResponseEntity<User> getUserById(@PathVariable(value="userId") String id);
 	
-	@GetMapping("/types")
+	@GetMapping("/type")
 	public ResponseEntity<UserType> getUserTypes();
 	
-	@PostMapping("/")
+	@PostMapping("/type")
 	@AuthenticatorAnnotation
 	public ResponseEntity<UserType> createUserType(@RequestBody UserType userType);
 	

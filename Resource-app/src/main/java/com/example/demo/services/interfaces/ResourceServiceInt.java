@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.model.Resource;
+import com.example.demo.model.catalog.ResourceType;
 
 @RequestMapping("/resource")
 @CrossOrigin(origins = "http://localhost:5173", methods = {RequestMethod.GET, RequestMethod.POST})
@@ -25,5 +26,11 @@ public interface ResourceServiceInt {
 	
 	@GetMapping("/{resourceId}")
 	public ResponseEntity<Resource> getResourceById(@PathVariable(value="resourceId") String id);
+
+	@GetMapping("/type")
+	ResponseEntity<List<ResourceType>> getResourceTypeList();
+
+	@PostMapping("/type")
+	ResponseEntity<ResourceType> createResourceType(ResourceType resourceType);
 
 }
