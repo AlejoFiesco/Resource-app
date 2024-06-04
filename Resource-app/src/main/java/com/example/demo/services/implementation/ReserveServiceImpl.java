@@ -1,6 +1,7 @@
 package com.example.demo.services.implementation;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -68,7 +69,7 @@ public class ReserveServiceImpl implements ReserveServiceInt {
 	@Override
 	public ResponseEntity<Reserve> registerDevolution(String id) {
 		Reserve reserve = null;
-		if(id != null && !id.isEmpty()) {
+		if(Objects.nonNull(id) && !id.isEmpty()) {
 			try {
 				reserve = reserveBusiness.registerDevolution(id);
 			}catch(Exception e) {

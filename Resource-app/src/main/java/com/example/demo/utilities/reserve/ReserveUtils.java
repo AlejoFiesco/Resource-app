@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.demo.database.factory.Collections;
-import com.example.demo.database.implementation.exceptions.OutOfDisponibilityException;
 import com.example.demo.model.Reserve;
 import com.example.demo.model.Resource;
 import com.example.demo.utilities.date.DateUtils;
@@ -27,7 +25,8 @@ public class ReserveUtils {
 				.whereArrayContainsAny("resourceIdList",
 						Objects.isNull(reserve.getResourceIdList()) ? new ArrayList<Object>()
 								: reserve.getResourceIdList())
-				.whereEqualTo("classroom.id", reserve.getClassroom().getId());
+				.whereEqualTo("classroom.id", reserve.getClassroom().getId())
+				.whereEqualTo("devolutionDate", reserveCollRef);
 
 		Query query2 = firestore.collection(Collections.RESERVES.getCollectionName())
 				.whereGreaterThan("to", reserve.getFrom()).whereLessThan("to", reserve.getTo())

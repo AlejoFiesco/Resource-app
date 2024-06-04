@@ -3,7 +3,6 @@ package com.example.demo.business.implementation;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.business.interfaces.UserBusinessInt;
@@ -63,7 +62,7 @@ public class UserBusinessImpl implements UserBusinessInt{
 
 	@Override
 	public UserType createUserType(UserType userType) throws Exception {
-		return factory.create(userType, null);
+		return factory.create(userType, userType.getId());
 	}
 	
 

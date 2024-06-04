@@ -31,6 +31,6 @@ public interface ResourceServiceInt {
 	ResponseEntity<List<ResourceType>> getResourceTypeList();
 
 	@PostMapping("/type")
-	ResponseEntity<ResourceType> createResourceType(ResourceType resourceType);
+	ResponseEntity<ResourceType> createResourceType(@RequestBody ResourceType resourceType);
 
 }
