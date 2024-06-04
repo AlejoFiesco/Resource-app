@@ -10,9 +10,12 @@ import org.springframework.stereotype.Service;
 import com.example.demo.business.interfaces.ReserveBusinessInt;
 import com.example.demo.database.factory.Factory;
 import com.example.demo.database.implementation.ReserveDBImpl;
+import com.example.demo.database.implementation.exceptions.AlreadyReservedException;
+import com.example.demo.database.implementation.exceptions.OutOfDisponibilityException;
 import com.example.demo.model.Reserve;
 import com.example.demo.model.Resource;
 import com.example.demo.utilities.filters.ReserveFilter;
+import com.example.demo.utilities.reserve.ReserveUtils;
 
 @Service
 public class ReserveBusinessImpl implements ReserveBusinessInt {
@@ -27,6 +30,14 @@ public class ReserveBusinessImpl implements ReserveBusinessInt {
 	public Reserve createReserve(Reserve reserve) throws Exception {
 		Reserve createdReserve = null;
 		if (reserve != null) {
+			
+			List<Resource> outOfDisponibilityResources = ReserveUtils.areResourcesAvalaible(reserve);
+			if (!outOfDisponibilityResources.isEmpty())
+				throw new OutOfDisponibilityException("La reserva está fuera de la disponibilidad del recurso "
+						+ outOfDisponibilityResources.stream().map(Resource::getName).collect(Collectors.joining(", ")));
+
+			if (!ReserveUtils.checkForCross(reserve))
+				throw new AlreadyReservedException("La reserva se cruza");
 
 			createdReserve = reserveDb.createReserve(reserve);
 

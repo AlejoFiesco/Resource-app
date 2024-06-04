@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import java.util.List;
 
+import com.example.demo.model.catalog.ResourceType;
 import com.example.demo.model.subclasses.TimeRange;
 
 public class Resource {
@@ -10,6 +11,7 @@ public class Resource {
 	private String description;
 	private List<String> avalaibleDays;
 	private List<TimeRange> disponibility;
+	private ResourceType resourceType;
 	
 	
 	public String getId() {
@@ -41,5 +43,11 @@ public class Resource {
 	}
 	public void setDisponibility(List<TimeRange> disponibility) {
 		this.disponibility = disponibility;
+	}
+	public ResourceType getResourceType() {
+		return resourceType;
+	}
+	public void setResourceType(ResourceType resourceType) {
+		this.resourceType = resourceType;
 	}	
 }

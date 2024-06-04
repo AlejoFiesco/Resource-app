@@ -3,11 +3,13 @@ package com.example.demo.business.implementation;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.business.interfaces.UserBusinessInt;
 import com.example.demo.database.factory.Factory;
 import com.example.demo.model.User;
+import com.example.demo.model.catalog.UserType;
 
 @Service
 public class UserBusinessImpl implements UserBusinessInt{
@@ -52,6 +54,16 @@ public class UserBusinessImpl implements UserBusinessInt{
 		}
 		
 		return user;
+	}
+
+	@Override
+	public List<UserType> getUserTypes() throws Exception {
+		return factory.getList(UserType.class, null);
+	}
+
+	@Override
+	public UserType createUserType(UserType userType) throws Exception {
+		return factory.create(userType, null);
 	}
 	
 

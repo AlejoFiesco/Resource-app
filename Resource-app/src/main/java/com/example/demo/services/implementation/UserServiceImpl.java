@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.business.implementation.UserBusinessImpl;
 import com.example.demo.config.AuthenticatorAnnotation;
 import com.example.demo.model.User;
+import com.example.demo.model.catalog.UserType;
 import com.example.demo.services.interfaces.UserServiceInt;
 import com.example.demo.utilities.responses.CustomResponse;
 
@@ -53,6 +54,24 @@ public class UserServiceImpl implements UserServiceInt{
 			System.out.println(e);
 		}
 		return CustomResponse.buildResponse(user);
+	}
+
+	@Override
+	public ResponseEntity<UserType> getUserTypes() {
+		try {
+			return CustomResponse.buildResponse(userBusiness.getUserTypes());
+		}catch(Exception e) {
+			return CustomResponse.buildResponse(e.getLocalizedMessage());
+		}
+	}
+
+	@Override
+	public ResponseEntity<UserType> createUserType(UserType userType) {
+		try {
+			return CustomResponse.buildResponse(userBusiness.createUserType(userType));
+		}catch(Exception e) {
+			return CustomResponse.buildResponse(e.getLocalizedMessage());
+		}
 	}
 
 }

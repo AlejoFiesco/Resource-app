@@ -9,6 +9,7 @@ import com.example.demo.business.interfaces.ResourceBusinessInt;
 import com.example.demo.database.factory.Factory;
 import com.example.demo.database.implementation.ResourceDBImpl;
 import com.example.demo.model.Resource;
+import com.example.demo.model.catalog.ResourceType;
 
 @Service
 public class ResourceBusinessImp implements ResourceBusinessInt {
@@ -53,5 +54,15 @@ public class ResourceBusinessImp implements ResourceBusinessInt {
 		}
 		
 		return resource;
+	}
+
+	@Override
+	public List<ResourceType> getResourceTypeList() throws Exception {
+		return factory.getList(ResourceType.class, null);
+	}
+
+	@Override
+	public ResourceType createResourceType(ResourceType resourceType) throws Exception {
+		return factory.create(resourceType, null);
 	}
 }

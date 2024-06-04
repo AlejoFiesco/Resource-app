@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.config.AuthenticatorAnnotation;
 import com.example.demo.model.User;
+import com.example.demo.model.catalog.UserType;
 
 @RequestMapping("/user")
 @CrossOrigin(origins = "http://localhost:5173", methods = {RequestMethod.GET, RequestMethod.POST})
@@ -27,5 +28,12 @@ public interface UserServiceInt {
 	
 	@GetMapping("/{userId}")
 	public ResponseEntity<User> getUserById(@PathVariable(value="userId") String id);
+	
+	@GetMapping("/types")
+	public ResponseEntity<UserType> getUserTypes();
+	
+	@PostMapping("/")
+	@AuthenticatorAnnotation
+	public ResponseEntity<UserType> createUserType(@RequestBody UserType userType);
 	
 }
