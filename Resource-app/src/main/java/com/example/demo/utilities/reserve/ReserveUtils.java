@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.demo.database.factory.Collections;
 import com.example.demo.model.Reserve;
@@ -15,11 +16,12 @@ import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.Query;
 
+@Service
 public class ReserveUtils {
 	@Autowired
-	static Firestore firestore;
+	Firestore firestore;
 
-	public static boolean checkForCross(Reserve reserve) throws InterruptedException, ExecutionException {
+	public boolean checkForCross(Reserve reserve) throws InterruptedException, ExecutionException {
 		CollectionReference reserveCollRef = firestore.collection(Collections.RESERVES.getCollectionName());
 		Query query1 = reserveCollRef.whereGreaterThan("from", reserve.getFrom()).whereLessThan("from", reserve.getTo())
 				.whereArrayContainsAny("resourceIdList",

@@ -3,6 +3,7 @@ package com.example.demo.database.implementation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,5 +77,26 @@ public class ReserveDBImpl implements ReserveDBInt {
 
 		return query.get().get().getDocuments().stream().map(doc -> doc.toObject(Reserve.class)).toList();
 	}
+	
+	public boolean checkForCross(Reserve reserve) throws InterruptedException, ExecutionException {
+		CollectionReference reserveCollRef = firestore.collection(Collections.RESERVES.getCollectionName());
+		Query query1 = reserveCollRef.whereGreaterThan("from", reserve.getFrom()).whereLessThan("from", reserve.getTo())
+				.whereArrayContainsAny("resourceIdList",
+						Objects.isNull(reserve.getResourceIdList()) ? new ArrayList<Object>()
+								: reserve.getResourceIdList())
+				.whereEqualTo("classroom.id", reserve.getClassroom().getId());
 
+		Query query2 = firestore.collection(Collections.RESERVES.getCollectionName())
+				.whereGreaterThan("to", reserve.getFrom()).whereLessThan("to", reserve.getTo())
+				.whereArrayContainsAny("resourceIdList",
+						Objects.isNull(reserve.getResourceIdList()) ? new ArrayList<Object>()
+								: reserve.getResourceIdList())
+				.whereNotEqualTo("classroom.id", reserve.getClassroom().getId());
+
+		List<Reserve> reserves1 = query1.get().get().toObjects(Reserve.class);
+		List<Reserve> reserves2 = query2.get().get().toObjects(Reserve.class);
+		return reserves1.isEmpty() && reserves2.isEmpty();
+	}
+
+	
 }
